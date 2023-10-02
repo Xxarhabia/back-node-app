@@ -50,7 +50,6 @@ export const User = sequelize.define("Users", {
  */
 User.belongsToMany(Role, {through: "UserRole"});
 Role.belongsToMany(User, {through: "UserRole"});
-console.log( typeof User )
 
 /**
  * Con esta funcion hacemos el encriptado de la constraseña

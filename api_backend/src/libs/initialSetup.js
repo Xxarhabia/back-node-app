@@ -34,19 +34,20 @@ export const createFirstAdmin = async () => {
   try {
     const adminFound = await User.findOne({
       where: {
-        role: "admin",
+        role: ["admin"],
       },
     });
 
     if (adminFound) return;
 
-    const fistAdmin = {
+    await User.create({
       name: "admin",
       last_name: "admin",
       document: "000000",
       email: "admin@admin.com",
       password: "12345",
-    };
+      role: ["admin"]
+    });
   } catch (error) {
     console.error(error);
   }
