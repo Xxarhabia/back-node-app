@@ -15,6 +15,27 @@ export const signUp = async (req, res) => {
 
     const userRole = [defaultRole.name];
 
+    const regex = /^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (!regex.test(email)) {
+      return res.status(403).json({ message: "It's Not an Email!" })
+    }
+
+    if (!name.length>2) {
+      return res.status(403).json({ message:"name so short or empty field! min length 2" })
+    }
+
+    if (!last_name.length>2) {
+      return res.status(403).json({ message:"last_name so short or empty field!  min length 2" })
+    }
+
+    if (!document.length>9) {
+      return res.status(403).json({ message: "document too short, min length 10!" })
+    }
+
+    if (!password.length>7) {
+      return res.status(403).json({ message: "password too short, min length 8!" })
+    }
+
     const userRegistered = await User.create({
       name,
       last_name,
