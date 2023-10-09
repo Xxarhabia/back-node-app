@@ -6,7 +6,7 @@ import config from "../config.js";
 
 export const signUp = async (req, res) => {
   try {
-    const { name, last_name, document, email, password } = req.body;
+    const {name, last_name, document, email, password,adress,gender } = req.body;
     const newUser = new User();
 
     const defaultRole = await Role.findOne({
@@ -36,12 +36,18 @@ export const signUp = async (req, res) => {
       return res.status(403).json({ message: "password too short, min length 8!" })
     }
 
+    if(!adress.length>1){
+      return res.status(403).json({ message: "Adress are null!" })
+    }
+
     const userRegistered = await User.create({
       name,
       last_name,
       document,
       email,
       password: await newUser.encryptPassword(password),
+      adress,
+      gender,
       role: userRole,
     });
 

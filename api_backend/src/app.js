@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
 
 import { createRoles } from "./libs/initialSetup.js";;
 
@@ -17,7 +18,7 @@ const corsOptions = {
     optionsSuccessStatus: 204,
     credentials: true,
   };
-  
+
 
 app.use(morgan('dev'));
 
