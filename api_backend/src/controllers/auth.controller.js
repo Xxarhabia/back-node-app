@@ -6,7 +6,7 @@ import config from "../config.js";
 
 export const signUp = async (req, res) => {
   try {
-    const {name, last_name, document, email, password,adress,gender } = req.body;
+    const { name, last_name, document, email, password, adress, gender } = req.body;
     const newUser = new User();
 
     const defaultRole = await Role.findOne({

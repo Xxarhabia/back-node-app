@@ -12,7 +12,7 @@ const app = express();
 createRoles();
 
 const corsOptions = {
-    origin: 'https://mi-front-end.com',
+    origin: 'http://localhost:4200/',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
     optionsSuccessStatus: 204,

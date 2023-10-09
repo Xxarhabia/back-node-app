@@ -6,7 +6,7 @@ import config from "../config.js";
 
 export const createUser = async (req, res) => {
   try {
-    const { username, email, password, role } = req.body;
+    const { name, last_name, document, email, password, adress, gender, role } = req.body;
     const newUser = new User();
 
     let userRole;
@@ -23,9 +23,13 @@ export const createUser = async (req, res) => {
     }
 
     const userRegistered = await User.create({
-      username,
+      name,
+      last_name,
+      document,
       email,
       password: await newUser.encryptPassword(password),
+      adress,
+      gender,
       role: userRole,
     });
 
