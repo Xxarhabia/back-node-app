@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
 
-export const ROLES = ["cliente", "administrador", "empleado"];
+export const ROLES = ["cliente", "admin", "empleado"];
 
 export const Role = sequelize.define("Role", {
   id: {

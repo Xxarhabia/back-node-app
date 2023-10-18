@@ -1,6 +1,8 @@
 import { Role } from "../models/Role.js";
 import { User } from "../models/User.js";
 
+import jwt from "jsonwebtoken";
+import config from "../config.js";
 /**
  * Metodo encargado de crear los roles para el usuario
  * Se llama en app.js
@@ -37,17 +39,23 @@ export const createFirstAdmin = async () => {
         role: ["admin"],
       },
     });
+    const newUser = new User();
 
     if (adminFound) return;
 
-    await User.create({
+    const adminRegistered = await User.create({
       name: "admin",
       last_name: "admin",
       document: "000000",
       email: "admin@admin.com",
-      password: "12345",
+      password: await newUser.encryptPassword("12345"),
       role: ["admin"]
     });
+
+    const token = jwt.sign({id: adminRegistered.id}, config.SECRET, {
+      expiresIn: 86400,
+    });
+    console.log(token);
   } catch (error) {
     console.error(error);
   }

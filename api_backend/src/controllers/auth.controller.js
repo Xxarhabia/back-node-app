@@ -7,6 +7,7 @@ import config from "../config.js";
 export const signUp = async (req, res) => {
   try {
     const {name, last_name, document, email, password,adress,gender } = req.body;
+
     const newUser = new User();
 
     const defaultRole = await Role.findOne({
@@ -20,23 +21,28 @@ export const signUp = async (req, res) => {
       return res.status(403).json({ message: "It's Not an Email!" })
     }
 
-    if (!name.length>2) {
+    if (name.length==0) {
+      console.log("error 1");
       return res.status(403).json({ message:"name so short or empty field! min length 2" })
     }
 
-    if (!last_name.length>2) {
+    if (last_name.length<3) {
+      console.log("error 2");
       return res.status(403).json({ message:"last_name so short or empty field!  min length 2" })
     }
 
-    if (!document.length>9) {
+    if (document.length<10) {
+      console.log("error 3");
       return res.status(403).json({ message: "document too short, min length 10!" })
     }
 
-    if (!password.length>7) {
+    if (password.length<7) {
+      console.log("error 4");
       return res.status(403).json({ message: "password too short, min length 8!" })
     }
 
-    if(!adress.length>1){
+    if(adress.length<2){
+      console.log("error 5");
       return res.status(403).json({ message: "Adress are null!" })
     }
 
@@ -57,6 +63,7 @@ export const signUp = async (req, res) => {
 
     res.status(200).json({ token });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };

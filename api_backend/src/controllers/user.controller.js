@@ -6,7 +6,7 @@ import config from "../config.js";
 
 export const createUser = async (req, res) => {
   try {
-    const { username, email, password, role } = req.body;
+    const { name, last_name, document, email, password,adress,gender,role } = req.body;
     const newUser = new User();
 
     let userRole;
@@ -22,11 +22,45 @@ export const createUser = async (req, res) => {
       userRole = [defaultRole.name];
     }
 
+    const regex = /^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (!regex.test(email)) {
+      return res.status(403).json({ message: "It's Not an Email!" })
+    }
+
+    if (name.length==0) {
+      console.log("error 1");
+      return res.status(403).json({ message:"name so short or empty field! min length 2" })
+    }
+
+    if (last_name.length<3) {
+      console.log("error 2");
+      return res.status(403).json({ message:"last_name so short or empty field!  min length 2" })
+    }
+
+    if (document.length<10) {
+      console.log("error 3");
+      return res.status(403).json({ message: "document too short, min length 10!" })
+    }
+
+    if (password.length<7) {
+      console.log("error 4");
+      return res.status(403).json({ message: "password too short, min length 8!" })
+    }
+
+    if(adress.length<2){
+      console.log("error 5");
+      return res.status(403).json({ message: "Adress are null!" })
+    }
+
     const userRegistered = await User.create({
-      username,
-      email,
-      password: await newUser.encryptPassword(password),
-      role: userRole,
+      name,
+      last_name, 
+      document, 
+      email, 
+      password: await newUser.encryptPassword(password) ,
+      adress,
+      gender,
+      role 
     });
 
     const token = jwt.sign({ id: userRegistered.id }, config.SECRET, {
