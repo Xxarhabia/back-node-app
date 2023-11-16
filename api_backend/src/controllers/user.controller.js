@@ -6,7 +6,7 @@ import config from "../config.js";
 
 export const createUser = async (req, res) => {
   try {
-    const { name, last_name, document, email, password,adress,gender,role } = req.body;
+    const { name, lastName, document,date, email, password,address,gender,role } = req.body;
     const newUser = new User();
 
     let userRole;
@@ -32,9 +32,9 @@ export const createUser = async (req, res) => {
       return res.status(403).json({ message:"name so short or empty field! min length 2" })
     }
 
-    if (last_name.length<3) {
+    if (lastName.length<3) {
       console.log("error 2");
-      return res.status(403).json({ message:"last_name so short or empty field!  min length 2" })
+      return res.status(403).json({ message:"lastnName so short or empty field!  min length 2" })
     }
 
     if (document.length<10) {
@@ -47,18 +47,19 @@ export const createUser = async (req, res) => {
       return res.status(403).json({ message: "password too short, min length 8!" })
     }
 
-    if(adress.length<2){
+    if(address.length<2){
       console.log("error 5");
-      return res.status(403).json({ message: "Adress are null!" })
+      return res.status(403).json({ message: "Address are null!" })
     }
 
     const userRegistered = await User.create({
       name,
-      last_name, 
-      document, 
+      lastName, 
+      document,
+      date, 
       email, 
       password: await newUser.encryptPassword(password) ,
-      adress,
+      address,
       gender,
       role 
     });

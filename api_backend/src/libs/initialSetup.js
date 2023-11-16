@@ -45,7 +45,7 @@ export const createFirstAdmin = async () => {
 
     const adminRegistered = await User.create({
       name: "admin",
-      last_name: "admin",
+      lastName: "admin",
       document: "000000",
       email: "admin@admin.com",
       password: await newUser.encryptPassword("12345"),

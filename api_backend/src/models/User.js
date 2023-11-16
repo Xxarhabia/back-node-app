@@ -18,7 +18,7 @@ export const User = sequelize.define("Users", {
     type: DataTypes.STRING(80),
     allowNull: true
   },
-  last_name: {
+  lastName: {
     type: DataTypes.STRING(80),
     allowNull: true
   },
@@ -26,6 +26,10 @@ export const User = sequelize.define("Users", {
     type: DataTypes.STRING(10),
     unique: true,
     allowNull: true,
+  },
+  date: {
+    type: DataTypes.DATE,
+    allowNull: true
   },
   email: {
     type: DataTypes.STRING(255),
@@ -36,7 +40,7 @@ export const User = sequelize.define("Users", {
     type: DataTypes.STRING(100),
     allowNull: true,
   },
-  adress:{
+  address:{
     type: DataTypes.STRING(100),
     allowNull:true,
   },
