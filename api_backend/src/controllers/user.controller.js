@@ -73,3 +73,53 @@ export const createUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.findAll();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      return res.status(200).json({
+        message: `User with id: ${id} does not exist`,
+      });
+    }
+
+    res.json({ user });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const updateUserAddress = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const {address} = req.body;
+
+    const user = await User.findByPk(id);
+
+    if(!user) {
+      return res.status(404).json({
+        message: `User with id: ${id} does not exist`,
+      });
+    }
+
+    user.address = address;
+
+    const userUpdated = await user.save();
+
+    res.json({message: "User updated successfully", userUpdated});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
