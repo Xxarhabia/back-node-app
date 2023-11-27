@@ -6,7 +6,7 @@ import config from "../config.js";
 
 export const signUp = async (req, res) => {
   try {
-    const {name, lastName, document, date , email, password,address,gender } = req.body;
+    const {name, last_name, document, date , email, password,address,gender } = req.body;
 
     const newUser = new User();
 
@@ -26,7 +26,7 @@ export const signUp = async (req, res) => {
       return res.status(403).json({ message:"name so short or empty field! min length 2" })
     }
 
-    if (lastName.length<3) {
+    if (last_name.length<3) {
       console.log("error 2");
       return res.status(403).json({ message:"lastName so short or empty field!  min length 2" })
     }
@@ -48,7 +48,7 @@ export const signUp = async (req, res) => {
 
     const userRegistered = await User.create({
       name,
-      lastName,
+      last_name,
       document,
       date,
       email,

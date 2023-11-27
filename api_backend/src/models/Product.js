@@ -13,18 +13,19 @@ export const Product = sequelize.define(
     name: {
       type: DataTypes.STRING,
     },
-    category: {
-      type: DataTypes.STRING,
+    description: {
+      type: DataTypes.STRING(500),
     },
     price: {
       type: DataTypes.DOUBLE,
     },
     img_url: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(500),
+      allowNull: false,
     },
   },
   {
-    timestamps: true,
+    timestamps: false,
     versionKey: false,
   }
 );

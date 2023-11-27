@@ -2,13 +2,13 @@ import { Product } from "../models/Product.js";
 
 export const createProduct = async (req, res) => {
   try {
-    const { name, category, price, imgUrl } = req.body;
+    const { name, description, price, img_url } = req.body;
 
     const productCreated = await Product.create({
       name,
-      category,
+      description,
       price,
-      imgUrl,
+      img_url,
     });
 
     res.status(201).json({ message: "Created product", productCreated });
@@ -46,7 +46,7 @@ export const getProductById = async (req, res) => {
 export const updateProduct = async (req, res) => {
   try {
     const id = req.params.id;
-    const { name, category, price, imgUrl } = req.body;
+    const { name, description, price, img_url } = req.body;
 
     const product = await Product.findByPk(id);
 
@@ -56,9 +56,9 @@ export const updateProduct = async (req, res) => {
       });
 
     product.name = name;
-    product.category = category;
+    product.description = description
     product.price = price;
-    product.imgUrl = imgUrl;
+    product.img_url = img_url;
 
     const productUpdated = await product.save();
 
