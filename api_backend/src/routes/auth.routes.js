@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 
-import { signIn, signUp } from "../controllers/auth.controller.js";
+import { logout, signIn, signUp } from "../controllers/auth.controller.js";
 import {
   checkRolesExisted,
   checkDuplicateUsernameOrEmail,
@@ -13,5 +13,6 @@ router.post(
   signUp
 );
 router.post("/signin", signIn);
+router.post("/logout", logout);
 
 export default router;

@@ -25,6 +25,18 @@ app.use(morgan("dev"));
 
 app.use(express.json());
 
+//usamos esto para cerrar la sesion
+app.use((req, res, next) => {
+  const invalidTokens = req.app.get("invalidTokens") || [];
+  const token = req.headers["x-access-token"];
+
+  if (invalidTokens.includes(tokens)){
+    return res.status(401).json({ message: "Token revoked or invalid" });
+  }
+
+  next();
+})
+
 app.use("/api/products", productsRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);

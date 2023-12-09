@@ -95,3 +95,19 @@ export const signIn = async (req, res) => {
 
   res.json({ token });
 };
+
+
+export const logout = async (req, res) => {
+  try {
+    const token = req.headers['x-access-token'];
+
+    const invalidTokens = req.app.get('invalidTokens') || [];
+    invalidTokens.push(token);
+    req.app.set('invalidTokens', invalidTokens);
+
+    res.status(200).json({ message: 'Logout successful '});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
