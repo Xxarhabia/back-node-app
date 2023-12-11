@@ -14,13 +14,17 @@ export const Product = sequelize.define(
       type: DataTypes.STRING,
     },
     description: {
-      type: DataTypes.STRING(500),
+      type: DataTypes.TEXT,
     },
     price: {
       type: DataTypes.DOUBLE,
     },
     img_url: {
-      type: DataTypes.STRING(500),
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
